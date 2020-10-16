@@ -15,3 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/check-word/{word}', [WordController::class, 'check']);
+Route::get('/generate-letters/{howMuch}', [WordController::class, 'generateLetters']);
+Route::get('/get-password-words/{howMuch}', [WordController::class, 'getPasswordWords']);
+
+/* TODO: 
+    logowanie administratora
+    ładowanie pliku json z hasłami
+    możliwość aktualizacji pliku słownika
+*/
