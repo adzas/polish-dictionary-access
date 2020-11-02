@@ -4,31 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class WordsHelper extends Model
 {
     use HasFactory;
 
-    const DICTIONARY_PASSWORD_WORDS = [
-        'wilk',
-        'jajko',
-        'agent',
-        'potas',
-        'czekolada',
-        'złoto',
-    ];
-
     public static function getRandomWords(int $howMuch)
     {
-        $returnWords = [];
+        $return = [];
+        $table = 'polish_password_words';
+        $all = DB::table($table)->count();
         for ($i=0; $i < $howMuch; $i++) { 
-            $returnWords[] = self::DICTIONARY_PASSWORD_WORDS[rand(0, self::max())];
+            $random = rand(1, $all);
+            $return[] = DB::table($table)->where('ID', $random)->value('word');
         }
-        return $returnWords;
-    }
-
-    private static function max()
-    {
-        return count(self::DICTIONARY_PASSWORD_WORDS) - 1;
+        return $return;
     }
 }
